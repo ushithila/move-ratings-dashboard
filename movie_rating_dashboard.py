@@ -5,8 +5,9 @@ import streamlit as st
 df = pd.read_csv('data/movie_ratings.csv')
 
 
-print(df.head())
 
-
-#1. 
-st.bar_chart(df['genres'].value_counts().sort_index())
+#1 Breakdown of Genres Rated
+st.title('Genres Rated')
+df["genres"] = df["genres"].str.split('|')
+df_explode = df.explode('genres')
+st.bar_chart(df_explode['genres'].value_counts().sort_index())
